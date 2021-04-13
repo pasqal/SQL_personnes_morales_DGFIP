@@ -5,8 +5,8 @@ SELECT
 	btrim(concat(ppm."Num_Voirie", ' ', ppm."Nature_voie", ' ', ppm."Nom_voie")) AS adresse_terrain,
 	ppm."Nom_Commune" AS commune,
 	cod.signification AS droit,
-	ppm."Forme_juridique_abregee",
 	ppm."Denomination",
+     lfj.forme_juridique,
 	grp.signification AS groupe,
 	ppm."Num_SIREN"
 FROM
@@ -15,5 +15,6 @@ FROM
 	list_grp_pers_morale grp
 WHERE
 	ppm."Nom_Commune"::TEXT = 'LOC-EGUINER'::TEXT
+     AND ppm."Forme_juridique" = lfj.code
 	AND ppm."Code_droit"::TEXT = cod.code::TEXT
 	AND ppm."Groupe_personne" = grp.groupe;
